@@ -527,6 +527,13 @@ if [ "$TYPE" = "SNAPSHOT" ] || [ "$TYPE" = "NATRON_CI" ]; then
     ARENA_BRANCH="master"
     GMIC_BRANCH="master"
     CV_BRANCH="master"
+    # plugin-branches.sh may pin a commit as well as a branch; default to the
+    # branch tip when it does not.
+    IO_COMMIT=""
+    MISC_COMMIT=""
+    ARENA_COMMIT=""
+    GMIC_COMMIT=""
+    CV_COMMIT=""
     # If the already checkout-out Natron branch overrides it, do it now
     if [ -f "$TMP_PATH/Natron/Global/plugin-branches.sh" ]; then
     . "$TMP_PATH/Natron/Global/plugin-branches.sh"
@@ -534,15 +541,15 @@ if [ "$TYPE" = "SNAPSHOT" ] || [ "$TYPE" = "NATRON_CI" ]; then
 
 
     setBuildOption "OPENFX_IO_GIT_BRANCH" "$IO_BRANCH"
-    setBuildOption "OPENFX_IO_GIT_COMMIT" ""
+    setBuildOption "OPENFX_IO_GIT_COMMIT" "$IO_COMMIT"
     setBuildOption "OPENFX_MISC_GIT_BRANCH" "$MISC_BRANCH"
-    setBuildOption "OPENFX_MISC_GIT_COMMIT" ""
+    setBuildOption "OPENFX_MISC_GIT_COMMIT" "$MISC_COMMIT"
     setBuildOption "OPENFX_ARENA_GIT_BRANCH" "$ARENA_BRANCH"
-    setBuildOption "OPENFX_ARENA_GIT_COMMIT" ""
+    setBuildOption "OPENFX_ARENA_GIT_COMMIT" "$ARENA_COMMIT"
     setBuildOption "OPENFX_GMIC_GIT_BRANCH" "$GMIC_BRANCH"
-    setBuildOption "OPENFX_GMIC_GIT_COMMIT" ""
+    setBuildOption "OPENFX_GMIC_GIT_COMMIT" "$GMIC_COMMIT"
     setBuildOption "OPENFX_OPENCV_GIT_BRANCH" "$CV_BRANCH"
-    setBuildOption "OPENFX_OPENCV_GIT_COMMIT" ""
+    setBuildOption "OPENFX_OPENCV_GIT_COMMIT" "$CV_COMMIT"
 fi
 
 updateBuildOptions
