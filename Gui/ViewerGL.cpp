@@ -2065,16 +2065,6 @@ ViewerGL::mouseMoveEvent(QMouseEvent* e)
     }
 } // mouseMoveEvent
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-static constexpr QPointingDevice::PointerType kTabletPointerCursor = QPointingDevice::PointerType::Cursor;
-static constexpr QPointingDevice::PointerType kTabletPointerEraser = QPointingDevice::PointerType::Eraser;
-static constexpr QPointingDevice::PointerType kTabletPointerPen = QPointingDevice::PointerType::Pen;
-#else
-static constexpr QTabletEvent::PointerType kTabletPointerCursor = QTabletEvent::Cursor;
-static constexpr QTabletEvent::PointerType kTabletPointerEraser = QTabletEvent::Eraser;
-static constexpr QTabletEvent::PointerType kTabletPointerPen = QTabletEvent::Pen;
-#endif
-
 void
 ViewerGL::tabletEvent(QTabletEvent* e)
 {
@@ -2087,13 +2077,13 @@ ViewerGL::tabletEvent(QTabletEvent* e)
     switch ( e->type() ) {
     case QEvent::TabletPress: {
         switch ( e->pointerType() ) {
-        case kTabletPointerCursor:
+        case QPointingDevice::PointerType::Cursor:
             _imp->pointerTypeOnPress  = ePenTypeCursor;
             break;
-        case kTabletPointerEraser:
+        case QPointingDevice::PointerType::Eraser:
             _imp->pointerTypeOnPress  = ePenTypeEraser;
             break;
-        case kTabletPointerPen:
+        case QPointingDevice::PointerType::Pen:
         default:
             _imp->pointerTypeOnPress  = ePenTypePen;
             break;

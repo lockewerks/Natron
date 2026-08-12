@@ -50,11 +50,7 @@ NATRON_NAMESPACE_ENTER
 // QWidget::nativeEvent hands back a long* on Qt5 and a qintptr* on Qt6. Those
 // are distinct types on 64 bit Windows, so an override naming the wrong one
 // quietly becomes a new virtual instead of failing to compile.
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 typedef qintptr NativeEventResult;
-#else
-typedef long NativeEventResult;
-#endif
 
 // —— local includes —————————————————————————-
 // —— pre defines ——————————————————————————-
