@@ -53,22 +53,13 @@ removeFileExtension(QString & filename)
     return extension;
 }
 
-// Define compatibility typedefs so code builds with Qt5 & Qt6
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 typedef ::QEnterEvent QEnterEvent;
-#elif QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-typedef QEvent QEnterEvent;
-#else
-#error "Unsupported version of QT"
-#endif
 
 /*Holds a lock on either kind of mutex for the duration of a scope.
 
-  Qt5 derived QRecursiveMutex from QMutex, so a single QMutexLocker could hold
-  whichever one a code path happened to pick. Qt6 made the two types unrelated
-  and turned QMutexLocker into a template on the mutex type, which leaves no
-  one type able to hold both. Deferred locking is the point here: these lockers
-  are declared unlocked and only engaged on some branches.*/
+  QRecursiveMutex does not derive from QMutex and QMutexLocker is a template on
+  the mutex type, so no one type can hold both. Deferred locking is the point
+  here: these lockers are declared unlocked and only engaged on some branches.*/
 class MutexLock
 {
 public:
